@@ -134,7 +134,7 @@ export default function WebExecutiveDashboard({
       )}
 
       {/* Top Banner de Navegação Rápida entre os Modos Web e Mobile */}
-      <div className="w-full max-w-[1240px] mb-3 flex items-center justify-between px-2 text-xs">
+      <div className="w-full max-w-[1440px] mb-3 flex items-center justify-between px-2 text-xs">
         <div className="flex items-center gap-2">
           <Link
             href="/"
@@ -159,7 +159,7 @@ export default function WebExecutiveDashboard({
       </div>
 
       {/* Container Principal do Dashboard no Estilo Exato da Imagem */}
-      <div className="w-full max-w-[1240px] bg-white rounded-3xl shadow-[0_20px_50px_rgba(15,23,42,0.12)] border border-neutral-200/80 overflow-hidden flex flex-col lg:flex-row min-h-[720px]">
+      <div className="w-full max-w-[1440px] bg-white rounded-3xl shadow-[0_20px_50px_rgba(15,23,42,0.12)] border border-neutral-200/80 overflow-hidden flex flex-col lg:flex-row min-h-[760px]">
         {/* ========================================================================= */}
         {/* 1. SIDEBAR LATERAL ESQUERDA (DARK NAVY / AGRO NOVO)                        */}
         {/* ========================================================================= */}

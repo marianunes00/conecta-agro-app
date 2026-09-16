@@ -64,8 +64,9 @@ export default function CadastroPage() {
   }
 
   return (
-    <div className="relative min-h-[100dvh] flex flex-col justify-between px-6 py-6 bg-white overflow-hidden">
-      <TechGeometricBackground />
+    <div className="min-h-screen w-full bg-slate-950 flex items-center justify-center md:py-8">
+      <div className="relative w-full max-w-md min-h-[100dvh] md:min-h-auto md:rounded-3xl md:shadow-2xl flex flex-col justify-between px-6 py-6 bg-white overflow-hidden text-neutral-900">
+        <TechGeometricBackground />
 
       {/* Topo com Voltar */}
       <div className="relative z-10 flex items-center gap-3">
@@ -227,5 +228,6 @@ export default function CadastroPage() {
         </svg>
       </div>
     </div>
+  </div>
   );
 }

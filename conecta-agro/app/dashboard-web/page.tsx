@@ -12,16 +12,18 @@ export default async function DashboardWebPage() {
   const stations = property ? await getStations(property.id) : [];
 
   return (
-    <WebExecutiveDashboard
-      property={property}
-      stations={stations.map((s) => ({
-        id: s.id,
-        code: s.code,
-        status: (s.status as "online" | "atencao" | "offline") || "online",
-        battery_pct: s.battery_pct,
-      }))}
-      userName={profile?.full_name || "João da Silva"}
-      userEmail={profile?.email || "gestao@conectaagro.com.br"}
-    />
+    <div className="w-full min-h-screen bg-[#eaedf2]">
+      <WebExecutiveDashboard
+        property={property}
+        stations={stations.map((s) => ({
+          id: s.id,
+          code: s.code,
+          status: (s.status as "online" | "atencao" | "offline") || "online",
+          battery_pct: s.battery_pct,
+        }))}
+        userName={profile?.full_name || "João da Silva"}
+        userEmail={profile?.email || "gestao@conectaagro.com.br"}
+      />
+    </div>
   );
 }

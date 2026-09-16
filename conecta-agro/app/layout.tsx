@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Conecta Agro",
+  title: "Conecta Agro | Inteligência Hídrica & Agricultura de Precisão",
   description: "Irrigação inteligente para um futuro mais sustentável.",
 };
 
@@ -18,11 +18,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
-      <body className="min-h-screen">
-        <div className="mx-auto min-h-screen max-w-md bg-white shadow-xl md:my-6 md:min-h-[calc(100vh-3rem)] md:rounded-3xl md:border md:border-agro-100">
-          {children}
-        </div>
+    <html lang="pt-BR" className="h-full">
+      <body className="min-h-screen w-full bg-slate-950 text-slate-100 antialiased m-0 p-0">
+        {children}
       </body>
     </html>
   );

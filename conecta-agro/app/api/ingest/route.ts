@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import type { Database } from "@/types/database";
 
 /**
  * GET /api/ingest
@@ -144,13 +145,11 @@ export async function POST(req: NextRequest) {
     }
 
     // 7. Atualiza status da estação para online, last_seen_at e nível da bateria
-    const stationUpdates: Record<string, any> = {
+    const stationUpdates: Database["public"]["Tables"]["stations"]["Update"] = {
       status: "online",
       last_seen_at: new Date().toISOString(),
+      ...(body.battery_pct != null ? { battery_pct: Number(body.battery_pct) } : {}),
     };
-    if (body.battery_pct != null) {
-      stationUpdates.battery_pct = Number(body.battery_pct);
-    }
 
     await supabase.from("stations").update(stationUpdates).eq("id", stationId);
 

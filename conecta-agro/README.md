@@ -85,13 +85,29 @@ insert into alerts (property_id, station_id, severity, title, message)
 values ('COLE_O_ID_DA_PROPRIEDADE', 'COLE_O_ID_DA_ESTACAO', 'critico', 'Bateria baixa', 'A bateria da estação está com 15%.');
 ```
 
-## 5. Conectando as estações ESP32 de verdade
+## 5. Conectando as estações ESP32 / Enviando via API
 
-O firmware deve enviar os dados via HTTPS para uma rota de API própria (a criar em
-`app/api/ingest/route.ts`) usando a **service_role key** do Supabase (nunca a anon key
-no firmware) para inserir em `sensor_readings` e atualizar `stations.last_seen_at`.
-Isso não foi incluído neste MVP para manter o escopo publicável hoje — posso montar essa
-rota na sequência quando você quiser ligar o firmware real (RF-07, RNF-10).
+A rota de ingestão está disponível em `POST /api/ingest`.
+
+Exemplo de envio via cURL:
+
+```bash
+curl -X POST http://localhost:3000/api/ingest \
+  -H "Content-Type: application/json" \
+  -d '{
+    "station_id": "03b777d4-0182-455d-8fc9-ebfa14a621e3",
+    "soil_moisture_pct": 68.5,
+    "air_temperature_c": 27.4,
+    "air_humidity_pct": 58.0,
+    "atmospheric_pressure_hpa": 1013.2,
+    "uv_index": 6.1,
+    "battery_pct": 92.0
+  }'
+```
+
+Configuração necessária no `.env.local` (ou variáveis de ambiente na Vercel):
+- `SUPABASE_SERVICE_ROLE_KEY`: chave `service_role` (encontrada no Supabase em **Project Settings → API**).
+- `INGEST_API_KEY`: (opcional) se definida, a rota exigirá o cabeçalho `x-api-key`.
 
 ## Estrutura do projeto
 

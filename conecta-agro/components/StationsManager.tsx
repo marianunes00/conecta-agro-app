@@ -23,6 +23,15 @@ export default function StationsManager({ propertyId, stations }: { propertyId: 
   const [lng, setLng] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  function copyToClipboard(id: string) {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(id);
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2000);
+    }
+  }
 
   async function handleAdd(e: React.FormEvent) {
     e.preventDefault();
@@ -54,10 +63,23 @@ export default function StationsManager({ propertyId, stations }: { propertyId: 
       <ul className="flex flex-col gap-2">
         {stations.map((s) => (
           <li key={s.id} className="flex items-center justify-between rounded-2xl border border-neutral-100 px-4 py-3 shadow-card">
-            <div>
-              <p className="text-sm font-semibold text-neutral-700">{s.code}</p>
-              <StationStatusPill status={s.status} />
+            <div className="flex-1 pr-2">
+              <div className="flex items-center gap-2">
+                <p className="text-sm font-semibold text-neutral-700">{s.code}</p>
+                <StationStatusPill status={s.status} />
+              </div>
+              <p className="mt-1 font-mono text-[11px] text-neutral-400 select-all truncate">
+                ID: {s.id}
+              </p>
             </div>
+            <button
+              type="button"
+              onClick={() => copyToClipboard(s.id)}
+              className="text-xs text-agro-700 hover:text-agro-800 bg-agro-50 px-2.5 py-1 rounded-lg border border-agro-200 whitespace-nowrap transition-colors"
+              title="Copiar ID da estação"
+            >
+              {copiedId === s.id ? "Copiado!" : "Copiar ID"}
+            </button>
           </li>
         ))}
         {stations.length === 0 && (

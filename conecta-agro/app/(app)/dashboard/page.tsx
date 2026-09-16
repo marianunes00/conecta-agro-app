@@ -70,10 +70,20 @@ export default async function DashboardPage() {
             <HamburgerIcon />
           </button>
 
-          <Link href="/notificacoes" className="relative p-1 text-white hover:text-emerald-200 transition">
-            <BellIcon />
-            <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-red-500 ring-2 ring-[#1b5e20]" />
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/dashboard-web"
+              className="text-[11px] font-bold bg-white/15 hover:bg-white/25 px-2.5 py-1 rounded-xl text-white flex items-center gap-1 transition shadow-xs"
+              title="Abrir Dashboard Web Executivo"
+            >
+              <span>🖥️</span> Web
+            </Link>
+
+            <Link href="/notificacoes" className="relative p-1 text-white hover:text-emerald-200 transition">
+              <BellIcon />
+              <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-red-500 ring-2 ring-[#1b5e20]" />
+            </Link>
+          </div>
         </div>
 
         <div className="flex items-center gap-3.5">

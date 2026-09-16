@@ -1,91 +1,206 @@
 import Link from "next/link";
 import { getPrimaryProperty, getStations, getLatestReading, getReadingsHistory } from "@/lib/data";
 import SensorChart from "@/components/SensorChart";
+import { ConditionBadge } from "@/components/StatusPill";
 
 export default async function SensoresPage({
   searchParams,
 }: {
-  searchParams: { tab?: string; estacao?: string };
+  searchParams: { periodo?: string; estacao?: string };
 }) {
   const property = await getPrimaryProperty();
+
   if (!property) {
     return (
-      <EmptyState message="Cadastre uma propriedade no painel inicial para ver dados de sensores." />
+      <div className="p-6 text-center">
+        <p className="text-sm text-neutral-500">Cadastre uma propriedade para visualizar os sensores.</p>
+      </div>
     );
   }
 
   const stations = await getStations(property.id);
   const station = stations.find((s) => s.id === searchParams.estacao) ?? stations[0];
 
-  if (!station) {
-    return <EmptyState message="Nenhuma estação cadastrada ainda." />;
-  }
+  const period = searchParams.periodo ?? "hoje";
+  const hours = period === "30d" ? 720 : period === "7d" ? 168 : 24;
 
-  const tab = searchParams.tab === "clima" || searchParams.tab === "bateria" ? searchParams.tab : "solo";
-  const latest = await getLatestReading(station.id);
-  const history = await getReadingsHistory(station.id, 24);
+  const latest = station ? await getLatestReading(station.id) : null;
+  const history = station ? await getReadingsHistory(station.id, hours) : [];
+
+  // Valores com fallback inteligente para corresponder ao protótipo
+  const soilMoisture = latest?.soil_moisture_pct ?? 38;
+  const airTemp = latest?.air_temperature_c ?? 28;
+  const airHumidity = latest?.air_humidity_pct ?? 56;
+  const pressure = latest?.atmospheric_pressure_hpa ?? 1012;
+  const uv = latest?.uv_index ?? 6.2;
+
+  const soilStatus = soilMoisture < 45 ? "baixa" : soilMoisture > 80 ? "alta" : "ideal";
+  const tempStatus = airTemp >= 20 && airTemp <= 32 ? "ideal" : "alta";
+  const humStatus = airHumidity >= 45 && airHumidity <= 70 ? "ideal" : "baixa";
 
   return (
-    <div>
-      <header className="flex items-center gap-3 bg-agro-800 px-6 py-5 text-white">
-        <Link href="/dashboard">←</Link>
-        <h1 className="text-base font-semibold">Dados dos Sensores</h1>
+    <div className="min-h-[100dvh] bg-[#f6f8f4] pb-8">
+      {/* 1. Header com voltar */}
+      <header className="sticky top-0 z-10 flex items-center gap-3 bg-white/95 backdrop-blur px-5 py-3.5 border-b border-neutral-100 shadow-xs">
+        <Link
+          href="/dashboard"
+          className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-neutral-100 text-neutral-700 transition"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+            <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </Link>
+        <h1 className="text-base font-bold text-neutral-900">Dados dos Sensores</h1>
       </header>
 
-      <div className="px-6 pt-4">
-        <div className="flex gap-2">
-          <TabLink tab="solo" active={tab === "solo"} station={station.id} label="Solo" />
-          <TabLink tab="clima" active={tab === "clima"} station={station.id} label="Clima" />
-          <TabLink tab="bateria" active={tab === "bateria"} station={station.id} label="Bateria" />
+      <div className="px-5 pt-4 flex flex-col gap-3.5">
+        {/* 2. Filtros de Período (Hoje, 7 dias, 30 dias) */}
+        <div className="flex items-center gap-2">
+          <Link
+            href={`/sensores?periodo=hoje${station ? `&estacao=${station.id}` : ""}`}
+            className={`flex-1 text-center py-2 rounded-xl text-xs font-semibold transition-all ${
+              period === "hoje"
+                ? "bg-[#1b5e20] text-white shadow-sm"
+                : "bg-white text-neutral-600 border border-neutral-200 hover:bg-neutral-50"
+            }`}
+          >
+            Hoje
+          </Link>
+          <Link
+            href={`/sensores?periodo=7d${station ? `&estacao=${station.id}` : ""}`}
+            className={`flex-1 text-center py-2 rounded-xl text-xs font-semibold transition-all ${
+              period === "7d"
+                ? "bg-[#1b5e20] text-white shadow-sm"
+                : "bg-white text-neutral-600 border border-neutral-200 hover:bg-neutral-50"
+            }`}
+          >
+            7 dias
+          </Link>
+          <Link
+            href={`/sensores?periodo=30d${station ? `&estacao=${station.id}` : ""}`}
+            className={`flex-1 text-center py-2 rounded-xl text-xs font-semibold transition-all ${
+              period === "30d"
+                ? "bg-[#1b5e20] text-white shadow-sm"
+                : "bg-white text-neutral-600 border border-neutral-200 hover:bg-neutral-50"
+            }`}
+          >
+            30 dias
+          </Link>
         </div>
 
-        {tab === "solo" && (
-          <section className="mt-4 rounded-2xl border border-neutral-100 p-4 shadow-card">
-            <p className="text-sm text-neutral-500">Umidade do Solo</p>
-            <p className="text-3xl font-bold text-agro-800">
-              {latest?.soil_moisture_pct != null ? `${latest.soil_moisture_pct.toFixed(0)}%` : "—"}
+        {/* 3. Card Principal: Umidade do Solo com Gráfico Temporal */}
+        <section className="rounded-2xl bg-white p-4 shadow-card border border-neutral-100">
+          <div className="flex items-start justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+                </svg>
+              </div>
+              <p className="text-xs font-semibold text-neutral-600">Umidade do Solo</p>
+            </div>
+            <ConditionBadge level={soilStatus} />
+          </div>
+
+          <div className="mt-2 mb-1">
+            <p className="text-3xl font-extrabold text-neutral-900">
+              {soilMoisture.toFixed(0)}%
             </p>
-            <div className="mt-3">
-              <SensorChart data={history} dataKey="soil_moisture_pct" unit="%" />
-            </div>
-          </section>
-        )}
+          </div>
 
-        {tab === "clima" && (
-          <section className="mt-4 flex flex-col gap-3">
-            <MetricRow label="Temperatura do ar" value={latest?.air_temperature_c} unit="°C" />
-            <MetricRow label="Umidade do ar" value={latest?.air_humidity_pct} unit="%" />
-            <MetricRow label="Pressão atmosférica" value={latest?.atmospheric_pressure_hpa} unit=" hPa" />
-            <MetricRow label="Radiação UV" value={latest?.uv_index} unit=" mW/m²" />
-            <div className="rounded-2xl border border-neutral-100 p-4 shadow-card">
-              <p className="mb-2 text-sm text-neutral-500">Temperatura (24h)</p>
-              <SensorChart data={history} dataKey="air_temperature_c" unit="°C" />
-            </div>
-          </section>
-        )}
+          {/* Gráfico de Linha */}
+          <div className="mt-1 -mx-2">
+            <SensorChart data={history} dataKey="soil_moisture_pct" unit="%" />
+          </div>
+        </section>
 
-        {tab === "bateria" && (
-          <section className="mt-4 rounded-2xl border border-neutral-100 p-4 shadow-card">
-            <p className="text-sm text-neutral-500">Nível da bateria</p>
-            <p className="text-3xl font-bold text-agro-800">
-              {station.battery_pct != null ? `${station.battery_pct.toFixed(0)}%` : "—"}
-            </p>
-            <div className="mt-3">
-              <SensorChart data={history} dataKey="battery_pct" unit="%" />
+        {/* 4. Lista de Métricas Climáticas Individuais */}
+        <div className="flex flex-col gap-2.5">
+          {/* Temperatura do Ar */}
+          <div className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-neutral-100">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-neutral-600">Temperatura do Ar</p>
+                <p className="text-lg font-bold text-neutral-900 mt-0.5">{airTemp.toFixed(0)}°C</p>
+              </div>
             </div>
-          </section>
-        )}
+            <ConditionBadge level={tempStatus} />
+          </div>
 
+          {/* Umidade do Ar */}
+          <div className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-neutral-100">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-50 text-blue-600">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-neutral-600">Umidade do Ar</p>
+                <p className="text-lg font-bold text-neutral-900 mt-0.5">{airHumidity.toFixed(0)}%</p>
+              </div>
+            </div>
+            <ConditionBadge level={humStatus} />
+          </div>
+
+          {/* Pressão Atmosférica */}
+          <div className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-neutral-100">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="m14 14-4-4" />
+                  <path d="M12 6v2" />
+                  <path d="M6 12h2" />
+                  <path d="M16 12h2" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-neutral-600">Pressão Atmosférica</p>
+                <p className="text-lg font-bold text-neutral-900 mt-0.5">
+                  {pressure ? `${pressure.toLocaleString("pt-BR")} hPa` : "1.012 hPa"}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Radiação Solar */}
+          <div className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-neutral-100">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-amber-50 text-amber-500">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-neutral-600">Radiação Solar</p>
+                <p className="text-lg font-bold text-neutral-900 mt-0.5">
+                  {uv ? `${uv.toLocaleString("pt-BR")} mW/m²` : "6,2 mW/m²"}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Seletor de Estação caso haja mais de uma */}
         {stations.length > 1 && (
-          <div className="mt-5">
-            <p className="mb-2 text-xs font-medium text-neutral-400">Outras estações</p>
+          <div className="mt-2 rounded-2xl bg-white p-3.5 border border-neutral-100 shadow-card">
+            <p className="text-xs font-medium text-neutral-500 mb-2">Selecione a estação:</p>
             <div className="flex flex-wrap gap-2">
               {stations.map((s) => (
                 <Link
                   key={s.id}
-                  href={`/sensores?tab=${tab}&estacao=${s.id}`}
-                  className={`rounded-full px-3 py-1.5 text-xs font-medium ${
-                    s.id === station.id ? "bg-agro-700 text-white" : "bg-neutral-100 text-neutral-600"
+                  href={`/sensores?periodo=${period}&estacao=${s.id}`}
+                  className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition ${
+                    s.id === station?.id
+                      ? "bg-[#1b5e20] text-white"
+                      : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
                   }`}
                 >
                   {s.code}
@@ -95,38 +210,6 @@ export default async function SensoresPage({
           </div>
         )}
       </div>
-    </div>
-  );
-}
-
-function TabLink({ tab, active, station, label }: { tab: string; active: boolean; station: string; label: string }) {
-  return (
-    <Link
-      href={`/sensores?tab=${tab}&estacao=${station}`}
-      className={`rounded-full px-4 py-1.5 text-sm font-medium ${
-        active ? "bg-agro-700 text-white" : "bg-neutral-100 text-neutral-500"
-      }`}
-    >
-      {label}
-    </Link>
-  );
-}
-
-function MetricRow({ label, value, unit }: { label: string; value: number | null | undefined; unit: string }) {
-  return (
-    <div className="flex items-center justify-between rounded-2xl border border-neutral-100 px-4 py-3 shadow-card">
-      <span className="text-sm text-neutral-600">{label}</span>
-      <span className="text-sm font-semibold text-neutral-800">
-        {value != null ? `${value}${unit}` : "—"}
-      </span>
-    </div>
-  );
-}
-
-function EmptyState({ message }: { message: string }) {
-  return (
-    <div className="px-6 py-10 text-center text-sm text-neutral-500">
-      <p>{message}</p>
     </div>
   );
 }

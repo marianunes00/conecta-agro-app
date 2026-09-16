@@ -10,6 +10,7 @@ export async function GET() {
   return NextResponse.json({
     status: "online",
     message: "Endpoint de ingestão de dados IoT (Conecta Agro)",
+    service_role_configured: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
     description: "Envie requisições POST com Content-Type: application/json contendo os dados dos sensores.",
     expected_payload: {
       station_id: "03b777d4-0182-455d-8fc9-ebfa14a621e3",
@@ -22,7 +23,7 @@ export async function GET() {
       water_flow_l: 0.0,
       reservoir_level_pct: 85.0,
     },
-    curl_example: `curl -X POST http://localhost:3000/api/ingest -H "Content-Type: application/json" -d "{\\"station_id\\":\\"03b777d4-0182-455d-8fc9-ebfa14a621e3\\",\\"soil_moisture_pct\\":65.5,\\"air_temperature_c\\":28.2,\\"battery_pct\\":90.0}"`,
+    curl_example: `curl -X POST https://conecta-agro-app.vercel.app/api/ingest -H "Content-Type: application/json" -d "{\\"station_id\\":\\"03b777d4-0182-455d-8fc9-ebfa14a621e3\\",\\"soil_moisture_pct\\":65.5,\\"air_temperature_c\\":28.2,\\"battery_pct\\":90.0}"`,
   });
 }
 
@@ -32,6 +33,16 @@ export async function GET() {
  */
 export async function POST(req: NextRequest) {
   try {
+    // 0. Verifica se a chave service_role está configurada
+    if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      return NextResponse.json(
+        {
+          error: "Chave SUPABASE_SERVICE_ROLE_KEY não configurada na Vercel.",
+          hint: "Acesse o painel da Vercel (Settings > Environment Variables) e cadastre a variável SUPABASE_SERVICE_ROLE_KEY com a chave 'service_role' do Supabase. Sem ela, o banco bloqueia as consultas externas por proteção RLS.",
+        },
+        { status: 500 }
+      );
+    }
     // 1. Validação opcional de chave de API (caso configurada no .env)
     const expectedApiKey = process.env.INGEST_API_KEY;
     if (expectedApiKey) {

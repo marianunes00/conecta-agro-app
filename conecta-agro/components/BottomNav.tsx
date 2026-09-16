@@ -16,6 +16,7 @@ export default function BottomNav() {
   const [showMoreMenu, setShowMoreMenu] = useState(false);
 
   const moreLinks = [
+    { href: "/gestao", label: "Painel de Gestão & IA", icon: "📊" },
     { href: "/irrigacao", label: "Controle de Irrigação", icon: "💧" },
     { href: "/historico", label: "Histórico de Atividades", icon: "📋" },
     { href: "/notificacoes", label: "Notificações & Alertas", icon: "🔔" },
@@ -73,7 +74,8 @@ export default function BottomNav() {
           {navItems.map(({ href, label, icon: Icon, isMenu }) => {
             const isMoreActive =
               Boolean(isMenu &&
-              (pathname === "/configuracoes" ||
+              (pathname === "/gestao" ||
+                pathname === "/configuracoes" ||
                 pathname === "/irrigacao" ||
                 pathname === "/historico" ||
                 pathname === "/notificacoes"));

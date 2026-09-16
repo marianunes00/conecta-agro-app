@@ -211,6 +211,32 @@ export default async function DashboardPage() {
             <ChevronRight />
           </span>
         </Link>
+
+        {/* 5. Destaque: Painel de Gestão & IA */}
+        <Link
+          href="/gestao"
+          className="flex items-center justify-between p-4 rounded-2xl bg-gradient-to-r from-emerald-900 to-agro-800 text-white shadow-lg shadow-emerald-950/20 hover:brightness-105 transition-all group border border-emerald-700/40"
+        >
+          <div className="flex items-center gap-3.5">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-xl backdrop-blur-xs shrink-0">
+              📊
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <p className="text-sm font-bold text-white">Painel de Gestão & IA</p>
+                <span className="px-2 py-0.5 rounded-full bg-emerald-400 text-emerald-950 text-[9px] font-extrabold uppercase tracking-wide">
+                  Novo
+                </span>
+              </div>
+              <p className="text-[11px] text-emerald-200 mt-0.5">
+                Indicadores, histórico, mapas, anomalias e IA hídrica
+              </p>
+            </div>
+          </div>
+          <span className="text-emerald-200 group-hover:translate-x-1 transition-transform">
+            <ChevronRight />
+          </span>
+        </Link>
       </div>
     </div>
   );

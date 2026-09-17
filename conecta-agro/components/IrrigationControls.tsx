@@ -86,15 +86,15 @@ export default function IrrigationControls({
   return (
     <div className="flex flex-col gap-3.5">
       {statusMessage && (
-        <div className="rounded-2xl bg-emerald-50 border border-emerald-200 p-3 text-xs text-emerald-800 flex items-center gap-2">
+        <div className="rounded-2xl bg-brand-cinza/40 border border-brand-salvia/40 p-3 text-xs text-brand-institucional font-semibold flex items-center gap-2">
           <span>💧</span>
           <span>{statusMessage}</span>
         </div>
       )}
 
       {/* 1. Modo de Operação */}
-      <section className="rounded-2xl bg-white p-4 shadow-card border border-neutral-100">
-        <p className="text-xs font-semibold text-neutral-600 mb-3">Modo de operação</p>
+      <section className="rounded-2xl bg-white p-4 shadow-card border border-brand-cinza">
+        <p className="font-heading text-xs font-bold text-brand-escuro mb-3">Modo de operação</p>
 
         <div className="grid grid-cols-2 gap-2.5">
           {/* Opção Automático */}
@@ -103,17 +103,17 @@ export default function IrrigationControls({
             onClick={() => handleModeChange("automatico")}
             className={`flex flex-col items-center justify-center p-3 rounded-xl border text-center transition-all ${
               mode === "automatico"
-                ? "bg-[#1b5e20] text-white border-[#1b5e20] shadow-sm"
-                : "bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-50"
+                ? "bg-brand-institucional text-white border-brand-institucional shadow-sm"
+                : "bg-white text-brand-escuro border-brand-cinza hover:bg-[#F8FAF7]"
             }`}
           >
             <div className="flex items-center gap-1.5 mb-1">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill={mode === "automatico" ? "white" : "#2e7d32"}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill={mode === "automatico" ? "white" : "#496F3C"}>
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.93V17c-2.76 0-5-2.24-5-5h1.07c.48 1.93 2.03 3.44 3.93 3.93z" />
               </svg>
-              <span className="text-xs font-bold">Automático</span>
+              <span className="font-heading text-xs font-bold">Automático</span>
             </div>
-            <span className={`text-[10px] ${mode === "automatico" ? "text-emerald-200" : "text-neutral-400"}`}>
+            <span className={`text-[10px] ${mode === "automatico" ? "text-brand-salvia" : "text-brand-medio"}`}>
               (recomendado)
             </span>
           </button>
@@ -124,17 +124,17 @@ export default function IrrigationControls({
             onClick={() => handleModeChange("manual")}
             className={`flex flex-col items-center justify-center p-3 rounded-xl border text-center transition-all ${
               mode === "manual"
-                ? "bg-[#1b5e20] text-white border-[#1b5e20] shadow-sm"
-                : "bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-50"
+                ? "bg-brand-institucional text-white border-brand-institucional shadow-sm"
+                : "bg-white text-brand-escuro border-brand-cinza hover:bg-[#F8FAF7]"
             }`}
           >
             <div className="flex items-center gap-1.5 mb-1">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v4M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v7M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8M6 14v-1.5a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v6a7 7 0 0 0 7 7h3a7 7 0 0 0 7-7v-6.5a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2" />
               </svg>
-              <span className="text-xs font-bold">Manual</span>
+              <span className="font-heading text-xs font-bold">Manual</span>
             </div>
-            <span className={`text-[10px] ${mode === "manual" ? "text-emerald-200" : "text-neutral-400"}`}>
+            <span className={`text-[10px] ${mode === "manual" ? "text-brand-salvia" : "text-brand-medio"}`}>
               Controle direto
             </span>
           </button>
@@ -142,16 +142,16 @@ export default function IrrigationControls({
       </section>
 
       {/* 2. Válvula de Irrigação */}
-      <section className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-neutral-100">
+      <section className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-brand-cinza">
         <div>
-          <p className="text-xs font-semibold text-neutral-600">Válvula de irrigação</p>
+          <p className="font-heading text-xs font-bold text-brand-escuro">Válvula de irrigação</p>
           <div className="flex items-center gap-2 mt-1">
-            <span className={valveOpen ? "text-blue-600" : "text-emerald-700"}>
+            <span className={valveOpen ? "text-blue-600" : "text-brand-conecta"}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
               </svg>
             </span>
-            <p className="text-sm font-bold text-neutral-800">
+            <p className="text-sm font-bold text-brand-escuro">
               {valveOpen ? "Aberta (irrigando)" : "Fechada"}
             </p>
           </div>
@@ -162,7 +162,7 @@ export default function IrrigationControls({
           type="button"
           onClick={handleToggleValve}
           className={`relative inline-flex h-7 w-12 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-            valveOpen ? "bg-[#1b5e20]" : "bg-neutral-300"
+            valveOpen ? "bg-brand-institucional" : "bg-neutral-300"
           }`}
         >
           <span
@@ -174,26 +174,26 @@ export default function IrrigationControls({
       </section>
 
       {/* 3. Tempo de Irrigação (Manual) */}
-      <section className="rounded-2xl bg-white p-4 shadow-card border border-neutral-100">
-        <p className="text-xs font-semibold text-neutral-600 mb-3">Tempo de irrigação (manual)</p>
+      <section className="rounded-2xl bg-white p-4 shadow-card border border-brand-cinza">
+        <p className="font-heading text-xs font-bold text-brand-escuro mb-3">Tempo de irrigação (manual)</p>
 
-        <div className="flex items-center justify-between bg-neutral-50 rounded-xl p-2 border border-neutral-200/80">
+        <div className="flex items-center justify-between bg-[#F8FAF7] rounded-xl p-2 border border-brand-cinza">
           <button
             type="button"
             onClick={() => adjustDuration(-5)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg bg-white text-neutral-700 hover:bg-neutral-100 active:scale-95 shadow-xs border border-neutral-200 font-bold text-lg"
+            className="flex h-10 w-10 items-center justify-center rounded-lg bg-white text-brand-escuro hover:bg-brand-cinza/30 active:scale-95 shadow-xs border border-brand-cinza font-bold text-lg"
           >
             -
           </button>
 
-          <span className="text-lg font-extrabold text-neutral-900">
+          <span className="font-heading text-lg font-extrabold text-brand-escuro">
             {duration} min
           </span>
 
           <button
             type="button"
             onClick={() => adjustDuration(5)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg bg-white text-neutral-700 hover:bg-neutral-100 active:scale-95 shadow-xs border border-neutral-200 font-bold text-lg"
+            className="flex h-10 w-10 items-center justify-center rounded-lg bg-white text-brand-escuro hover:bg-brand-cinza/30 active:scale-95 shadow-xs border border-brand-cinza font-bold text-lg"
           >
             +
           </button>
@@ -205,13 +205,13 @@ export default function IrrigationControls({
         type="button"
         onClick={startIrrigation}
         disabled={loading || activeIrrigation}
-        className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#1b5e20] hover:bg-[#164e1c] active:bg-[#0f3813] py-4 text-center text-sm font-bold text-white shadow-md shadow-agro-800/20 transition-all active:scale-[0.99] disabled:opacity-70"
+        className="w-full flex items-center justify-center gap-2 rounded-xl bg-brand-institucional hover:bg-[#1f5f09] active:bg-brand-escuro py-4 text-center text-sm font-heading font-extrabold text-white shadow-md shadow-brand-institucional/20 transition-all active:scale-[0.99] disabled:opacity-70"
       >
         {loading ? (
           <span>Iniciando...</span>
         ) : activeIrrigation ? (
           <>
-            <span className="h-2 w-2 rounded-full bg-emerald-300 animate-ping" />
+            <span className="h-2 w-2 rounded-full bg-brand-salvia animate-ping" />
             <span>Irrigação em andamento...</span>
           </>
         ) : (
@@ -219,7 +219,7 @@ export default function IrrigationControls({
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <polygon points="5 3 19 12 5 21 5 3" />
             </svg>
-            <span>Iniciar irrigação</span>
+            <span>Iniciar Irrigação Manual</span>
           </>
         )}
       </button>

@@ -8,6 +8,7 @@ import {
 } from "@/lib/data";
 import CreatePropertyForm from "@/components/CreatePropertyForm";
 import { ConditionBadge } from "@/components/StatusPill";
+import ConectaAgroLogo from "@/components/ConectaAgroLogo";
 
 export default async function DashboardPage() {
   const profile = await getProfile();
@@ -16,24 +17,22 @@ export default async function DashboardPage() {
   if (!property) {
     return (
       <div>
-        <header className="bg-agro-800 px-6 pt-7 pb-6 text-white">
+        <header className="bg-gradient-to-r from-brand-escuro to-brand-institucional px-6 pt-7 pb-6 text-white shadow-md">
           <div className="flex items-center justify-between">
-            <button type="button" className="text-white/80 hover:text-white p-1">
-              <HamburgerIcon />
-            </button>
+            <ConectaAgroLogo size="xs" variant="white" />
             <Link href="/notificacoes" className="relative p-1 text-white/80 hover:text-white">
               <BellIcon />
             </Link>
           </div>
-          <div className="mt-4 flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-agro-800 font-bold shadow-inner">
+          <div className="mt-5 flex items-center gap-3.5">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-brand-institucional font-bold shadow-inner">
               <UserIcon />
             </div>
             <div>
-              <p className="text-base font-bold text-white">
+              <p className="font-heading text-base font-bold text-white">
                 Olá, {profile?.full_name || "Produtor"}!
               </p>
-              <p className="text-xs text-emerald-200">Cadastre sua primeira propriedade</p>
+              <p className="text-xs text-brand-salvia font-medium">Cadastre sua primeira propriedade</p>
             </div>
           </div>
         </header>
@@ -62,39 +61,42 @@ export default async function DashboardPage() {
   const battStatus = battery >= 60 ? "boa" : battery >= 25 ? "normal" : "baixa";
 
   return (
-    <div className="min-h-[100dvh] bg-[#f6f8f4] pb-6">
-      {/* 1. Header Verde com Menu, Notificações e Perfil */}
-      <header className="bg-[#1b5e20] px-6 pt-5 pb-6 text-white shadow-md">
+    <div className="min-h-[100dvh] bg-brand-fundo pb-6">
+      {/* 1. Header Verde Institucional com Menu, Logo, Web link e Perfil */}
+      <header className="bg-gradient-to-br from-brand-escuro to-brand-institucional px-6 pt-5 pb-6 text-white shadow-md">
         <div className="flex items-center justify-between mb-4">
-          <button type="button" className="text-white hover:text-emerald-200 transition p-1">
-            <HamburgerIcon />
-          </button>
+          <div className="flex items-center gap-2.5">
+            <button type="button" className="text-white hover:text-brand-salvia transition p-1" aria-label="Menu principal">
+              <HamburgerIcon />
+            </button>
+            <ConectaAgroLogo size="xs" variant="white" />
+          </div>
 
           <div className="flex items-center gap-2">
             <Link
               href="/dashboard-web"
-              className="text-[11px] font-bold bg-white/15 hover:bg-white/25 px-2.5 py-1 rounded-xl text-white flex items-center gap-1 transition shadow-xs"
+              className="text-[11px] font-heading font-semibold bg-white/15 hover:bg-white/25 px-2.5 py-1 rounded-xl text-white flex items-center gap-1 transition shadow-xs border border-white/10"
               title="Abrir Dashboard Web Executivo"
             >
               <span>🖥️</span> Web
             </Link>
 
-            <Link href="/notificacoes" className="relative p-1 text-white hover:text-emerald-200 transition">
+            <Link href="/notificacoes" className="relative p-1 text-white hover:text-brand-salvia transition" aria-label="Notificações">
               <BellIcon />
-              <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-red-500 ring-2 ring-[#1b5e20]" />
+              <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-red-500 ring-2 ring-brand-institucional" />
             </Link>
           </div>
         </div>
 
         <div className="flex items-center gap-3.5">
-          <div className="flex h-13 w-13 items-center justify-center rounded-full bg-white text-[#1b5e20] shadow-md border-2 border-emerald-300/40 shrink-0">
+          <div className="flex h-13 w-13 items-center justify-center rounded-full bg-white text-brand-institucional shadow-md border-2 border-brand-salvia/40 shrink-0">
             <UserIcon />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-white leading-tight">
+            <h1 className="font-heading text-lg font-bold text-white leading-tight">
               Olá, {profile?.full_name || "Maria Valéria"}!
             </h1>
-            <p className="text-xs text-emerald-200/90 font-medium mt-0.5">
+            <p className="text-xs text-brand-salvia font-medium mt-0.5">
               Propriedade: {property.name}
             </p>
           </div>
@@ -103,31 +105,31 @@ export default async function DashboardPage() {
 
       <div className="px-5 -mt-3 flex flex-col gap-4">
         {/* 2. Card de Clima (Tempo) */}
-        <section className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-neutral-100">
+        <section className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-brand-cinza/60">
           <div className="flex items-center gap-3">
             <SunIcon />
             <div>
-              <p className="text-2xl font-bold text-neutral-900 leading-tight">
+              <p className="font-heading text-2xl font-bold text-brand-escuro leading-tight">
                 {airTemp.toFixed(0)}°C
               </p>
-              <p className="text-xs font-medium text-neutral-500">Ensolarado</p>
+              <p className="font-sans text-xs font-medium text-brand-medio">Ensolarado</p>
             </div>
           </div>
 
           <div className="text-right">
-            <p className="text-xs font-semibold text-neutral-800">
+            <p className="font-sans text-xs font-semibold text-brand-escuro">
               {property.city ? `${property.city}${property.state ? " - " + property.state : ""}` : "Salgueiro - PE"}
             </p>
-            <p className="text-[11px] text-neutral-400 mt-0.5">Hoje, 09:41</p>
+            <p className="text-[11px] text-brand-salvia mt-0.5">Hoje, 09:41</p>
           </div>
         </section>
 
         {/* 3. Seção: Condições da sua lavoura */}
         <section>
           <div className="flex items-center justify-between mb-2.5 px-1">
-            <h2 className="text-sm font-bold text-neutral-700">Condições da sua lavoura</h2>
+            <h2 className="font-heading text-sm font-bold text-brand-escuro">Condições da sua lavoura</h2>
             {mainStation && (
-              <span className="text-[11px] text-neutral-400 font-medium">
+              <span className="text-[11px] text-brand-medio font-medium">
                 {mainStation.code}
               </span>
             )}
@@ -136,64 +138,64 @@ export default async function DashboardPage() {
           {/* Grid 2x2 com ícones redondos e status pills */}
           <div className="grid grid-cols-2 gap-3">
             {/* Card 1: Umidade do Solo */}
-            <div className="flex flex-col justify-between rounded-2xl bg-white p-3.5 shadow-card border border-neutral-100">
+            <div className="flex flex-col justify-between rounded-2xl bg-white p-3.5 shadow-card border border-brand-cinza/50">
               <div className="flex items-start justify-between">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-cinza/40 text-brand-institucional">
                   <DropIcon />
                 </div>
                 <ConditionBadge level={soilStatus} />
               </div>
               <div className="mt-3">
-                <p className="text-xs text-neutral-500 font-medium">Umidade do solo</p>
-                <p className="text-2xl font-extrabold text-neutral-900 mt-0.5">
+                <p className="font-sans text-xs text-brand-medio font-medium">Umidade do solo</p>
+                <p className="font-heading text-2xl font-extrabold text-brand-escuro mt-0.5">
                   {soilMoisture.toFixed(0)}%
                 </p>
               </div>
             </div>
 
             {/* Card 2: Temperatura do Ar */}
-            <div className="flex flex-col justify-between rounded-2xl bg-white p-3.5 shadow-card border border-neutral-100">
+            <div className="flex flex-col justify-between rounded-2xl bg-white p-3.5 shadow-card border border-brand-cinza/50">
               <div className="flex items-start justify-between">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-cinza/40 text-brand-institucional">
                   <ThermometerIcon />
                 </div>
                 <ConditionBadge level={tempStatus} />
               </div>
               <div className="mt-3">
-                <p className="text-xs text-neutral-500 font-medium">Temperatura do ar</p>
-                <p className="text-2xl font-extrabold text-neutral-900 mt-0.5">
+                <p className="font-sans text-xs text-brand-medio font-medium">Temperatura do ar</p>
+                <p className="font-heading text-2xl font-extrabold text-brand-escuro mt-0.5">
                   {airTemp.toFixed(0)}°C
                 </p>
               </div>
             </div>
 
             {/* Card 3: Umidade do Ar */}
-            <div className="flex flex-col justify-between rounded-2xl bg-white p-3.5 shadow-card border border-neutral-100">
+            <div className="flex flex-col justify-between rounded-2xl bg-white p-3.5 shadow-card border border-brand-cinza/50">
               <div className="flex items-start justify-between">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-cinza/40 text-brand-institucional">
                   <WaterDropsIcon />
                 </div>
                 <ConditionBadge level={humStatus} />
               </div>
               <div className="mt-3">
-                <p className="text-xs text-neutral-500 font-medium">Umidade do ar</p>
-                <p className="text-2xl font-extrabold text-neutral-900 mt-0.5">
+                <p className="font-sans text-xs text-brand-medio font-medium">Umidade do ar</p>
+                <p className="font-heading text-2xl font-extrabold text-brand-escuro mt-0.5">
                   {airHumidity.toFixed(0)}%
                 </p>
               </div>
             </div>
 
             {/* Card 4: Bateria da Estação */}
-            <div className="flex flex-col justify-between rounded-2xl bg-white p-3.5 shadow-card border border-neutral-100">
+            <div className="flex flex-col justify-between rounded-2xl bg-white p-3.5 shadow-card border border-brand-cinza/50">
               <div className="flex items-start justify-between">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-cinza/40 text-brand-institucional">
                   <BatteryIcon />
                 </div>
                 <ConditionBadge level={battStatus} />
               </div>
               <div className="mt-3">
-                <p className="text-xs text-neutral-500 font-medium">Bateria da estação</p>
-                <p className="text-2xl font-extrabold text-neutral-900 mt-0.5">
+                <p className="font-sans text-xs text-brand-medio font-medium">Bateria da estação</p>
+                <p className="font-heading text-2xl font-extrabold text-brand-escuro mt-0.5">
                   {battery.toFixed(0)}%
                 </p>
               </div>
@@ -204,16 +206,16 @@ export default async function DashboardPage() {
         {/* 4. Card de Recomendação de Irrigação */}
         <Link
           href="/irrigacao"
-          className="flex items-center gap-3.5 rounded-2xl bg-[#1b5e20] p-4 text-white shadow-md shadow-agro-800/15 hover:bg-[#164e1c] transition-all group"
+          className="flex items-center gap-3.5 rounded-2xl bg-gradient-to-r from-brand-institucional to-brand-conecta p-4 text-white shadow-md shadow-brand-institucional/20 hover:brightness-105 transition-all group border border-brand-conecta/40"
         >
           <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/15 backdrop-blur-xs text-white shrink-0">
             <DropIcon />
           </div>
           <div className="flex-1">
-            <p className="text-[11px] font-medium text-emerald-200 uppercase tracking-wide">
+            <p className="font-sans text-[11px] font-semibold text-brand-salvia uppercase tracking-wider">
               Recomendação de irrigação
             </p>
-            <p className="text-sm font-bold text-white mt-0.5">
+            <p className="font-heading text-sm font-bold text-white mt-0.5">
               {recommendation?.reasoning ?? "Irrigar em 2h (aprox. 12 mm)"}
             </p>
           </div>
@@ -225,7 +227,7 @@ export default async function DashboardPage() {
         {/* 5. Destaque: Painel de Gestão & IA */}
         <Link
           href="/gestao"
-          className="flex items-center justify-between p-4 rounded-2xl bg-gradient-to-r from-emerald-900 to-agro-800 text-white shadow-lg shadow-emerald-950/20 hover:brightness-105 transition-all group border border-emerald-700/40"
+          className="flex items-center justify-between p-4 rounded-2xl bg-gradient-to-r from-brand-escuro to-brand-institucional text-white shadow-lg shadow-brand-escuro/20 hover:brightness-105 transition-all group border border-brand-conecta/40"
         >
           <div className="flex items-center gap-3.5">
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-xl backdrop-blur-xs shrink-0">
@@ -233,17 +235,17 @@ export default async function DashboardPage() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <p className="text-sm font-bold text-white">Painel de Gestão & IA</p>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-400 text-emerald-950 text-[9px] font-extrabold uppercase tracking-wide">
+                <p className="font-heading text-sm font-bold text-white">Painel de Gestão & IA</p>
+                <span className="px-2 py-0.5 rounded-full bg-brand-salvia text-brand-escuro text-[9px] font-heading font-extrabold uppercase tracking-wide">
                   Novo
                 </span>
               </div>
-              <p className="text-[11px] text-emerald-200 mt-0.5">
+              <p className="font-sans text-[11px] text-brand-cinza mt-0.5">
                 Indicadores, histórico, mapas, anomalias e IA hídrica
               </p>
             </div>
           </div>
-          <span className="text-emerald-200 group-hover:translate-x-1 transition-transform">
+          <span className="text-brand-salvia group-hover:translate-x-1 transition-transform">
             <ChevronRight />
           </span>
         </Link>

@@ -80,23 +80,23 @@ export default async function NotificacoesPage() {
       : sampleNotifications;
 
   return (
-    <div className="min-h-[100dvh] bg-[#f6f8f4] pb-8">
+    <div className="min-h-[100dvh] bg-brand-fundo pb-8">
       {/* Header com voltar */}
-      <header className="sticky top-0 z-10 flex items-center gap-3 bg-white/95 backdrop-blur px-5 py-3.5 border-b border-neutral-100 shadow-xs">
+      <header className="sticky top-0 z-10 flex items-center gap-3 bg-white/95 backdrop-blur px-5 py-3.5 border-b border-brand-cinza/50 shadow-xs">
         <Link
           href="/dashboard"
-          className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-neutral-100 text-neutral-700 transition"
+          className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-brand-cinza/40 text-brand-escuro transition"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
             <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Link>
         <div className="flex items-center gap-2">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-agro-700">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-brand-institucional">
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
             <path d="M13.73 21a2 2 0 0 1-3.46 0" />
           </svg>
-          <h1 className="text-base font-bold text-neutral-900">Notificações</h1>
+          <h1 className="font-heading text-base font-bold text-brand-escuro">Notificações</h1>
         </div>
       </header>
 
@@ -105,12 +105,12 @@ export default async function NotificacoesPage() {
           {displayList.map((n) => (
             <li
               key={n.id}
-              className="flex items-start gap-3.5 rounded-2xl bg-white p-3.5 shadow-card border border-neutral-100 hover:border-neutral-200 transition-colors"
+              className="flex items-start gap-3.5 rounded-2xl bg-white p-3.5 shadow-card border border-brand-cinza/60 hover:border-brand-salvia transition-colors"
             >
               {/* Ícone Circular Colorido */}
               <div className="shrink-0 mt-0.5">
                 {n.type === "recomendacao" && (
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-cinza/40 text-brand-institucional">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
                     </svg>
@@ -126,7 +126,7 @@ export default async function NotificacoesPage() {
                   </div>
                 )}
                 {n.type === "conexao" && (
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-cinza/40 text-brand-institucional">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
                       <path d="M5 12.55a11 11 0 0 1 14.08 0" />
                       <path d="M1.42 9a16 16 0 0 1 21.16 0" />
@@ -136,7 +136,7 @@ export default async function NotificacoesPage() {
                   </div>
                 )}
                 {n.type === "concluida" && (
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-salvia/30 text-brand-conecta">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
@@ -155,9 +155,9 @@ export default async function NotificacoesPage() {
 
               {/* Conteúdo da Notificação */}
               <div className="flex-1">
-                <p className="text-xs font-bold text-neutral-900">{n.title}</p>
-                <p className="text-xs text-neutral-600 mt-0.5 leading-relaxed">{n.message}</p>
-                <p className="text-[11px] text-neutral-400 mt-1 font-medium">{n.date}</p>
+                <p className="font-heading text-xs font-bold text-brand-escuro">{n.title}</p>
+                <p className="font-sans text-xs text-brand-escuro/80 mt-0.5 leading-relaxed">{n.message}</p>
+                <p className="font-sans text-[11px] text-brand-salvia mt-1 font-medium">{n.date}</p>
               </div>
             </li>
           ))}

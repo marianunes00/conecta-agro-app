@@ -29,20 +29,20 @@ export default function BottomNav() {
       {/* Modal / Menu rápido "Mais" */}
       {showMoreMenu && (
         <div
-          className="fixed inset-0 z-30 bg-black/40 backdrop-blur-xs flex items-end justify-center animate-fade-in"
+          className="fixed inset-0 z-30 bg-black/50 backdrop-blur-xs flex items-end justify-center animate-fade-in"
           onClick={() => setShowMoreMenu(false)}
         >
           <div
-            className="w-full max-w-md bg-white rounded-t-3xl p-5 shadow-2xl border-t border-neutral-100"
+            className="w-full max-w-md bg-white rounded-t-3xl p-5 shadow-2xl border-t border-brand-cinza"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mx-auto w-12 h-1.5 rounded-full bg-neutral-200 mb-4" />
+            <div className="mx-auto w-12 h-1.5 rounded-full bg-brand-cinza mb-4" />
             <div className="flex items-center justify-between mb-3 px-1">
-              <h3 className="font-bold text-neutral-800 text-base">Menu Rápido</h3>
+              <h3 className="font-heading font-bold text-brand-escuro text-base">Menu Rápido</h3>
               <button
                 type="button"
                 onClick={() => setShowMoreMenu(false)}
-                className="text-neutral-400 hover:text-neutral-600 text-sm font-medium"
+                className="text-brand-medio hover:text-brand-escuro text-xs font-semibold"
               >
                 Fechar
               </button>
@@ -56,12 +56,12 @@ export default function BottomNav() {
                   onClick={() => setShowMoreMenu(false)}
                   className={`flex flex-col items-start gap-1 p-3.5 rounded-2xl border transition-all ${
                     pathname === item.href
-                      ? "bg-agro-50 border-agro-300 text-agro-900"
-                      : "bg-neutral-50/70 border-neutral-100 text-neutral-700 hover:bg-neutral-100"
+                      ? "bg-brand-cinza/30 border-brand-institucional text-brand-institucional shadow-xs"
+                      : "bg-[#F8FAF7] border-brand-cinza/60 text-brand-escuro hover:bg-brand-cinza/20"
                   }`}
                 >
                   <span className="text-xl">{item.icon}</span>
-                  <span className="text-xs font-semibold">{item.label}</span>
+                  <span className="font-heading text-xs font-bold">{item.label}</span>
                 </Link>
               ))}
             </div>
@@ -70,7 +70,7 @@ export default function BottomNav() {
       )}
 
       {/* Barra de Navegação Inferior */}
-      <nav className="safe-bottom sticky bottom-0 z-20 border-t border-neutral-100 bg-white/95 backdrop-blur shadow-[0_-4px_16px_rgba(0,0,0,0.03)]">
+      <nav className="safe-bottom sticky bottom-0 z-20 border-t border-brand-cinza/70 bg-white/95 backdrop-blur shadow-[0_-4px_16px_rgba(23,72,7,0.04)]">
         <ul className="flex items-center justify-around px-3 py-1.5">
           {navItems.map(({ href, label, icon: Icon, isMenu }) => {
             const isMoreActive =
@@ -89,7 +89,7 @@ export default function BottomNav() {
                     type="button"
                     onClick={() => setShowMoreMenu(!showMoreMenu)}
                     className={`w-full flex flex-col items-center gap-1 py-1 text-[11px] font-medium transition-colors ${
-                      active ? "text-agro-700 font-semibold" : "text-neutral-400 hover:text-neutral-600"
+                      active ? "text-brand-institucional font-bold font-heading" : "text-brand-medio hover:text-brand-escuro"
                     }`}
                   >
                     <Icon active={active} />
@@ -104,7 +104,7 @@ export default function BottomNav() {
                 <Link
                   href={href}
                   className={`flex flex-col items-center gap-1 py-1 text-[11px] font-medium transition-colors ${
-                    active ? "text-agro-700 font-semibold" : "text-neutral-400 hover:text-neutral-600"
+                    active ? "text-brand-institucional font-bold font-heading" : "text-brand-medio hover:text-brand-escuro"
                   }`}
                 >
                   <Icon active={active} />

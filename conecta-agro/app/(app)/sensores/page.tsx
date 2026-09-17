@@ -39,18 +39,18 @@ export default async function SensoresPage({
   const humStatus = airHumidity >= 45 && airHumidity <= 70 ? "ideal" : "baixa";
 
   return (
-    <div className="min-h-[100dvh] bg-[#f6f8f4] pb-8">
+    <div className="min-h-[100dvh] bg-brand-fundo pb-8">
       {/* 1. Header com voltar */}
-      <header className="sticky top-0 z-10 flex items-center gap-3 bg-white/95 backdrop-blur px-5 py-3.5 border-b border-neutral-100 shadow-xs">
+      <header className="sticky top-0 z-10 flex items-center gap-3 bg-white/95 backdrop-blur px-5 py-3.5 border-b border-brand-cinza/50 shadow-xs">
         <Link
           href="/dashboard"
-          className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-neutral-100 text-neutral-700 transition"
+          className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-brand-cinza/40 text-brand-escuro transition"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
             <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Link>
-        <h1 className="text-base font-bold text-neutral-900">Dados dos Sensores</h1>
+        <h1 className="font-heading text-base font-bold text-brand-escuro">Dados dos Sensores</h1>
       </header>
 
       <div className="px-5 pt-4 flex flex-col gap-3.5">
@@ -58,30 +58,30 @@ export default async function SensoresPage({
         <div className="flex items-center gap-2">
           <Link
             href={`/sensores?periodo=hoje${station ? `&estacao=${station.id}` : ""}`}
-            className={`flex-1 text-center py-2 rounded-xl text-xs font-semibold transition-all ${
+            className={`flex-1 text-center py-2 rounded-xl text-xs font-heading font-semibold transition-all ${
               period === "hoje"
-                ? "bg-[#1b5e20] text-white shadow-sm"
-                : "bg-white text-neutral-600 border border-neutral-200 hover:bg-neutral-50"
+                ? "bg-brand-institucional text-white shadow-xs"
+                : "bg-white text-brand-escuro/70 border border-brand-cinza hover:bg-brand-cinza/30"
             }`}
           >
             Hoje
           </Link>
           <Link
             href={`/sensores?periodo=7d${station ? `&estacao=${station.id}` : ""}`}
-            className={`flex-1 text-center py-2 rounded-xl text-xs font-semibold transition-all ${
+            className={`flex-1 text-center py-2 rounded-xl text-xs font-heading font-semibold transition-all ${
               period === "7d"
-                ? "bg-[#1b5e20] text-white shadow-sm"
-                : "bg-white text-neutral-600 border border-neutral-200 hover:bg-neutral-50"
+                ? "bg-brand-institucional text-white shadow-xs"
+                : "bg-white text-brand-escuro/70 border border-brand-cinza hover:bg-brand-cinza/30"
             }`}
           >
             7 dias
           </Link>
           <Link
             href={`/sensores?periodo=30d${station ? `&estacao=${station.id}` : ""}`}
-            className={`flex-1 text-center py-2 rounded-xl text-xs font-semibold transition-all ${
+            className={`flex-1 text-center py-2 rounded-xl text-xs font-heading font-semibold transition-all ${
               period === "30d"
-                ? "bg-[#1b5e20] text-white shadow-sm"
-                : "bg-white text-neutral-600 border border-neutral-200 hover:bg-neutral-50"
+                ? "bg-brand-institucional text-white shadow-xs"
+                : "bg-white text-brand-escuro/70 border border-brand-cinza hover:bg-brand-cinza/30"
             }`}
           >
             30 dias
@@ -89,21 +89,21 @@ export default async function SensoresPage({
         </div>
 
         {/* 3. Card Principal: Umidade do Solo com Gráfico Temporal */}
-        <section className="rounded-2xl bg-white p-4 shadow-card border border-neutral-100">
+        <section className="rounded-2xl bg-white p-4 shadow-card border border-brand-cinza/60">
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-cinza/40 text-brand-institucional">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
                 </svg>
               </div>
-              <p className="text-xs font-semibold text-neutral-600">Umidade do Solo</p>
+              <p className="font-heading text-xs font-semibold text-brand-escuro">Umidade do Solo</p>
             </div>
             <ConditionBadge level={soilStatus} />
           </div>
 
           <div className="mt-2 mb-1">
-            <p className="text-3xl font-extrabold text-neutral-900">
+            <p className="font-heading text-3xl font-extrabold text-brand-escuro">
               {soilMoisture.toFixed(0)}%
             </p>
           </div>
@@ -117,41 +117,41 @@ export default async function SensoresPage({
         {/* 4. Lista de Métricas Climáticas Individuais */}
         <div className="flex flex-col gap-2.5">
           {/* Temperatura do Ar */}
-          <div className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-neutral-100">
+          <div className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-brand-cinza/60">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-cinza/40 text-brand-institucional">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
                 </svg>
               </div>
               <div>
-                <p className="text-xs font-semibold text-neutral-600">Temperatura do Ar</p>
-                <p className="text-lg font-bold text-neutral-900 mt-0.5">{airTemp.toFixed(0)}°C</p>
+                <p className="font-sans text-xs font-semibold text-brand-medio">Temperatura do Ar</p>
+                <p className="font-heading text-lg font-bold text-brand-escuro mt-0.5">{airTemp.toFixed(0)}°C</p>
               </div>
             </div>
             <ConditionBadge level={tempStatus} />
           </div>
 
           {/* Umidade do Ar */}
-          <div className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-neutral-100">
+          <div className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-brand-cinza/60">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-50 text-blue-600">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-salvia/30 text-brand-conecta">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
                 </svg>
               </div>
               <div>
-                <p className="text-xs font-semibold text-neutral-600">Umidade do Ar</p>
-                <p className="text-lg font-bold text-neutral-900 mt-0.5">{airHumidity.toFixed(0)}%</p>
+                <p className="font-sans text-xs font-semibold text-brand-medio">Umidade do Ar</p>
+                <p className="font-heading text-lg font-bold text-brand-escuro mt-0.5">{airHumidity.toFixed(0)}%</p>
               </div>
             </div>
             <ConditionBadge level={humStatus} />
           </div>
 
           {/* Pressão Atmosférica */}
-          <div className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-neutral-100">
+          <div className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-brand-cinza/60">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-cinza/40 text-brand-institucional">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <circle cx="12" cy="12" r="10" />
                   <path d="m14 14-4-4" />
@@ -161,8 +161,8 @@ export default async function SensoresPage({
                 </svg>
               </div>
               <div>
-                <p className="text-xs font-semibold text-neutral-600">Pressão Atmosférica</p>
-                <p className="text-lg font-bold text-neutral-900 mt-0.5">
+                <p className="font-sans text-xs font-semibold text-brand-medio">Pressão Atmosférica</p>
+                <p className="font-heading text-lg font-bold text-brand-escuro mt-0.5">
                   {pressure ? `${pressure.toLocaleString("pt-BR")} hPa` : "1.012 hPa"}
                 </p>
               </div>
@@ -170,17 +170,17 @@ export default async function SensoresPage({
           </div>
 
           {/* Radiação Solar */}
-          <div className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-neutral-100">
+          <div className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-brand-cinza/60">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-amber-50 text-amber-500">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-amber-50 text-amber-600">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <circle cx="12" cy="12" r="4" />
                   <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
                 </svg>
               </div>
               <div>
-                <p className="text-xs font-semibold text-neutral-600">Radiação Solar</p>
-                <p className="text-lg font-bold text-neutral-900 mt-0.5">
+                <p className="font-sans text-xs font-semibold text-brand-medio">Radiação Solar</p>
+                <p className="font-heading text-lg font-bold text-brand-escuro mt-0.5">
                   {uv ? `${uv.toLocaleString("pt-BR")} mW/m²` : "6,2 mW/m²"}
                 </p>
               </div>
@@ -190,17 +190,17 @@ export default async function SensoresPage({
 
         {/* Seletor de Estação caso haja mais de uma */}
         {stations.length > 1 && (
-          <div className="mt-2 rounded-2xl bg-white p-3.5 border border-neutral-100 shadow-card">
-            <p className="text-xs font-medium text-neutral-500 mb-2">Selecione a estação:</p>
+          <div className="mt-2 rounded-2xl bg-white p-3.5 border border-brand-cinza/60 shadow-card">
+            <p className="font-heading text-xs font-semibold text-brand-escuro mb-2">Selecione a estação:</p>
             <div className="flex flex-wrap gap-2">
               {stations.map((s) => (
                 <Link
                   key={s.id}
                   href={`/sensores?periodo=${period}&estacao=${s.id}`}
-                  className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition ${
+                  className={`rounded-xl px-3 py-1.5 text-xs font-heading font-semibold transition ${
                     s.id === station?.id
-                      ? "bg-[#1b5e20] text-white"
-                      : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+                      ? "bg-brand-institucional text-white shadow-xs"
+                      : "bg-brand-cinza/30 text-brand-escuro/80 hover:bg-brand-cinza/60"
                   }`}
                 >
                   {s.code}

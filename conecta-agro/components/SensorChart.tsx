@@ -35,28 +35,28 @@ export default function SensorChart({
     <div className="h-36 w-full pt-1">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={chartData} margin={{ top: 10, right: 12, left: -24, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e4ede1" />
           <XAxis
             dataKey="time"
-            tick={{ fontSize: 10, fill: "#94a3b8" }}
+            tick={{ fontSize: 10, fill: "#738C69" }}
             axisLine={false}
             tickLine={false}
           />
           <YAxis
             domain={[0, 100]}
             ticks={[20, 60, 100]}
-            tick={{ fontSize: 10, fill: "#94a3b8" }}
+            tick={{ fontSize: 10, fill: "#738C69" }}
             axisLine={false}
             tickLine={false}
             unit="%"
           />
           <Tooltip
             formatter={(value: number) => [`${value}${unit}`, ""]}
-            labelStyle={{ fontSize: 11, fontWeight: "bold", color: "#1b5e20" }}
+            labelStyle={{ fontSize: 11, fontWeight: "bold", color: "#174807" }}
             contentStyle={{
               borderRadius: 12,
-              border: "1px solid #e2e8f0",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+              border: "1px solid #D4DDD1",
+              boxShadow: "0 4px 12px rgba(23,72,7,0.06)",
               fontSize: 12,
               padding: "6px 10px",
             }}
@@ -64,10 +64,10 @@ export default function SensorChart({
           <Line
             type="monotone"
             dataKey="value"
-            stroke="#1b5e20"
+            stroke="#174807"
             strokeWidth={2.4}
-            dot={{ r: 3, fill: "#1b5e20", stroke: "#ffffff", strokeWidth: 1.5 }}
-            activeDot={{ r: 5, fill: "#166534" }}
+            dot={{ r: 3, fill: "#174807", stroke: "#ffffff", strokeWidth: 1.5 }}
+            activeDot={{ r: 5, fill: "#496F3C" }}
           />
         </LineChart>
       </ResponsiveContainer>

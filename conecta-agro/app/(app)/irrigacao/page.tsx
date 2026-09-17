@@ -20,18 +20,18 @@ export default async function IrrigacaoPage() {
   ]);
 
   return (
-    <div className="min-h-[100dvh] bg-[#f6f8f4] pb-8">
+    <div className="min-h-[100dvh] bg-brand-fundo pb-8">
       {/* Header com voltar */}
-      <header className="sticky top-0 z-10 flex items-center gap-3 bg-white/95 backdrop-blur px-5 py-3.5 border-b border-neutral-100 shadow-xs">
+      <header className="sticky top-0 z-10 flex items-center gap-3 bg-white/95 backdrop-blur px-5 py-3.5 border-b border-brand-cinza/50 shadow-xs">
         <Link
           href="/dashboard"
-          className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-neutral-100 text-neutral-700 transition"
+          className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-brand-cinza/40 text-brand-escuro transition"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
             <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Link>
-        <h1 className="text-base font-bold text-neutral-900">Controle de Irrigação</h1>
+        <h1 className="font-heading text-base font-bold text-brand-escuro">Controle de Irrigação</h1>
       </header>
 
       <div className="px-5 pt-4">

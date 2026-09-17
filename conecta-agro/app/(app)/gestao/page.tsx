@@ -18,16 +18,16 @@ export default async function GestaoPage() {
 
   if (!property) {
     return (
-      <div className="min-h-screen bg-neutral-50 px-5 py-8 pb-24">
+      <div className="min-h-screen bg-brand-fundo px-5 py-8 pb-24">
         <div className="max-w-md mx-auto">
-          <div className="bg-white rounded-3xl p-6 shadow-card border border-neutral-100 text-center">
-            <div className="w-14 h-14 mx-auto rounded-2xl bg-agro-50 text-agro-700 flex items-center justify-center text-2xl mb-4">
+          <div className="bg-white rounded-3xl p-6 shadow-card border border-brand-cinza/60 text-center">
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-brand-cinza/40 text-brand-institucional flex items-center justify-center text-2xl mb-4">
               🌱
             </div>
-            <h1 className="text-xl font-bold text-neutral-900">
+            <h1 className="font-heading text-xl font-bold text-brand-escuro">
               Painel de Gestão & Inteligência Artificial
             </h1>
-            <p className="text-xs text-neutral-500 mt-2 mb-6">
+            <p className="font-sans text-xs text-brand-medio mt-2 mb-6">
               Para visualizar os indicadores analíticos, estimativa hídrica por IA e detecção de anomalias, cadastre sua primeira propriedade.
             </p>
             <CreatePropertyForm />
@@ -121,39 +121,8 @@ export default async function GestaoPage() {
   }));
 
   return (
-    <div className="min-h-screen bg-neutral-50 pb-24">
-      {/* Top Header Navigation */}
-      <header className="bg-agro-800 text-white px-5 pt-6 pb-5 shadow-sm">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link
-              href="/dashboard"
-              className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 text-white hover:bg-white/20 transition-colors"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </Link>
-            <div>
-              <h1 className="text-base font-bold text-white leading-tight">
-                Painel de Gestão & IA
-              </h1>
-              <p className="text-[11px] text-emerald-200">
-                {property.name} {property.city ? `• ${property.city}` : ""}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 text-[10px] font-semibold">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              IA Ativa
-            </span>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="px-4 pt-4">
+    <div className="min-h-screen bg-brand-fundo pb-24">
+      <main>
         <ManagementDashboard
           property={{
             id: property.id,

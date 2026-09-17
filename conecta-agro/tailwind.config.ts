@@ -5,22 +5,37 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        brand: {
+          institucional: "#174807", // Logo, títulos e elementos principais
+          conecta: "#496F3C", // Gráficos, ícones e botões secundários
+          medio: "#738C69", // Elementos complementares e apoio
+          salvia: "#8FA787", // Fundos, cards e áreas secundárias
+          cinza: "#D4DDD1", // Bordas, divisórias e fundos suaves
+          escuro: "#123A08", // Textos fortes e alto contraste
+          branco: "#FFFFFF",
+        },
         agro: {
-          50: "#f1f8f3",
-          100: "#def0e2",
-          200: "#bfe2c8",
-          300: "#93cca2",
-          400: "#62b078",
-          500: "#3d9556",
-          600: "#2c7842",
-          700: "#1b5e20", // primary brand forest green
-          800: "#164e1c",
-          900: "#124017",
-          950: "#08230b",
+          50: "#f4f7f2",
+          100: "#e4ede1",
+          200: "#c8dcc3",
+          300: "#adcba7",
+          400: "#8FA787", // Verde Sálvia
+          500: "#738C69", // Verde Médio
+          600: "#496F3C", // Verde Conecta
+          700: "#2b5c1a",
+          800: "#174807", // Verde Institucional
+          900: "#123A08", // Verde Escuro
+          950: "#092004",
         },
         sky: {
           soil: "#8b5e34",
         },
+      },
+      fontFamily: {
+        sans: ["var(--font-montserrat)", "Montserrat", "sans-serif"],
+        heading: ["var(--font-poppins)", "Poppins", "sans-serif"],
+        poppins: ["var(--font-poppins)", "Poppins", "sans-serif"],
+        montserrat: ["var(--font-montserrat)", "Montserrat", "sans-serif"],
       },
       borderRadius: {
         xl2: "1.25rem",
@@ -28,8 +43,8 @@ const config: Config = {
         "4xl": "2rem",
       },
       boxShadow: {
-        card: "0 2px 12px -2px rgba(22, 78, 28, 0.06), 0 1px 4px rgba(0, 0, 0, 0.03)",
-        "card-hover": "0 8px 24px -4px rgba(27, 94, 32, 0.12)",
+        card: "0 2px 14px -2px rgba(23, 72, 7, 0.07), 0 1px 4px rgba(0, 0, 0, 0.03)",
+        "card-hover": "0 8px 24px -4px rgba(23, 72, 7, 0.14)",
         subtle: "0 1px 3px rgba(0, 0, 0, 0.04)",
       },
       keyframes: {

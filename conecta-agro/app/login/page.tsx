@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import ConectaAgroLogo, { TechGeometricBackground } from "@/components/ConectaAgroLogo";
@@ -37,121 +38,145 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-slate-950 flex items-center justify-center md:py-8">
-      <div className="relative w-full max-w-md min-h-[100dvh] md:min-h-auto md:rounded-3xl md:shadow-2xl flex flex-col justify-between px-6 py-8 bg-white overflow-hidden text-neutral-900">
+    <div className="min-h-screen w-full bg-gradient-to-br from-[#0c2506] via-[#123A08] to-[#174807] flex items-center justify-center p-0 sm:p-4 md:py-8">
+      {/* Container que reproduz a tela do Aplicativo exibida no manual */}
+      <div className="relative w-full max-w-md min-h-[100dvh] sm:min-h-[820px] sm:max-h-[880px] sm:rounded-3xl shadow-2xl flex flex-col justify-between bg-white overflow-hidden text-brand-escuro border border-brand-salvia/20">
         <TechGeometricBackground />
 
-      {/* Topo / Logo */}
-      <div className="relative z-10 pt-4 flex flex-col items-center text-center">
-        <ConectaAgroLogo size="lg" orientation="vertical" />
-
-        <div className="mt-6">
-          <h1 className="text-xl font-bold text-neutral-900">
-            Bem-vindo de volta!
-          </h1>
-          <p className="text-xs text-neutral-500 mt-1">
-            Acesse sua conta para continuar
-          </p>
-        </div>
-      </div>
-
-      {/* Formulário de Login */}
-      <form onSubmit={handleSubmit} className="relative z-10 my-auto flex flex-col gap-3.5 pt-4">
-        {error && (
-          <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-xs text-red-700 flex items-center gap-2">
-            <span>⚠️</span>
-            <span>{error}</span>
+        {/* Parte Superior: Identidade Visual e Boas-Vindas */}
+        <div className="relative z-10 px-6 pt-8 sm:pt-10 flex flex-col items-center text-center">
+          {/* Logo Oficial Conecta Agro */}
+          <div className="relative w-24 h-24 mb-2 hover:scale-105 transition-transform duration-300">
+            <Image
+              src="/conecta-agro-logo.png"
+              alt="Conecta Agro"
+              fill
+              className="object-contain"
+              priority
+            />
           </div>
-        )}
 
-        {/* Campo E-mail ou Telefone */}
-        <label className="flex items-center gap-3 rounded-xl border border-neutral-200 bg-white px-3.5 py-3 focus-within:border-agro-600 focus-within:ring-2 focus-within:ring-agro-100 transition-all shadow-xs">
-          <MailIcon />
-          <input
-            type="email"
-            required
-            placeholder="E-mail ou telefone"
-            className="w-full text-sm outline-none text-neutral-800 placeholder:text-neutral-400 bg-transparent"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
+          <span className="font-heading font-black text-2xl tracking-tight text-brand-institucional">
+            Conecta <span className="text-brand-conecta">Agro</span>
+          </span>
+          <span className="text-[10px] font-semibold text-brand-medio uppercase tracking-widest mt-1">
+            Tecnologia que cultiva o amanhã
+          </span>
 
-        {/* Campo Senha */}
-        <label className="flex items-center gap-3 rounded-xl border border-neutral-200 bg-white px-3.5 py-3 focus-within:border-agro-600 focus-within:ring-2 focus-within:ring-agro-100 transition-all shadow-xs">
-          <LockIcon />
-          <input
-            type={showPassword ? "text" : "password"}
-            required
-            placeholder="Senha"
-            className="w-full text-sm outline-none text-neutral-800 placeholder:text-neutral-400 bg-transparent"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="text-neutral-400 hover:text-neutral-600 p-0.5"
-            tabIndex={-1}
-            title={showPassword ? "Ocultar senha" : "Ver senha"}
-          >
-            <EyeIcon open={showPassword} />
-          </button>
-        </label>
-
-        {/* Botão Entrar */}
-        <button
-          type="submit"
-          disabled={loading}
-          className="mt-2 w-full rounded-xl bg-agro-700 hover:bg-agro-800 active:bg-agro-900 py-3.5 text-center text-sm font-semibold text-white shadow-md shadow-agro-700/20 transition-all active:scale-[0.99] disabled:opacity-60"
-        >
-          {loading ? "Entrando..." : "Entrar"}
-        </button>
-
-        {/* Link Esqueci Minha Senha */}
-        <div className="text-center pt-1">
-          <button
-            type="button"
-            onClick={() => alert("Por favor, contate o administrador para redefinir sua senha.")}
-            className="text-xs text-neutral-500 hover:text-agro-700 transition-colors"
-          >
-            Esqueceu sua senha?
-          </button>
+          <div className="mt-5 w-full text-left">
+            <h1 className="font-heading text-lg font-bold text-brand-escuro">
+              Bem-vindo de volta!
+            </h1>
+            <p className="font-sans text-xs text-brand-medio mt-0.5">
+              Acesse a plataforma de inteligência no campo
+            </p>
+          </div>
         </div>
 
-        {/* Divisor "ou" */}
-        <div className="my-2 flex items-center gap-3 text-xs text-neutral-400">
-          <span className="h-px flex-1 bg-neutral-200" />
-          <span>ou</span>
-          <span className="h-px flex-1 bg-neutral-200" />
+        {/* Formulário Central */}
+        <form onSubmit={handleSubmit} className="relative z-10 px-6 py-2 flex flex-col gap-3.5 my-auto">
+          {error && (
+            <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-xs text-red-700 flex items-center gap-2">
+              <span>⚠️</span>
+              <span>{error}</span>
+            </div>
+          )}
+
+          {/* Campo E-mail ou Telefone */}
+          <div className="flex flex-col gap-1">
+            <label className="text-[11px] font-semibold text-brand-medio">
+              E-mail ou Usuário
+            </label>
+            <div className="flex items-center gap-3 rounded-xl border border-brand-cinza bg-white px-3.5 py-3 focus-within:border-brand-institucional focus-within:ring-2 focus-within:ring-brand-institucional/10 transition-all shadow-xs">
+              <MailIcon />
+              <input
+                type="email"
+                required
+                placeholder="seu.email@fazenda.com.br"
+                className="w-full text-sm outline-none text-brand-escuro placeholder:text-neutral-400 bg-transparent font-sans"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+          </div>
+
+          {/* Campo Senha */}
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center justify-between">
+              <label className="text-[11px] font-semibold text-brand-medio">
+                Senha de Acesso
+              </label>
+              <button
+                type="button"
+                onClick={() => alert("Para redefinir sua senha, entre em contato com o suporte ou gestor da propriedade.")}
+                className="text-[11px] text-brand-conecta hover:text-brand-institucional font-medium transition-colors"
+              >
+                Esqueceu a senha?
+              </button>
+            </div>
+            <div className="flex items-center gap-3 rounded-xl border border-brand-cinza bg-white px-3.5 py-3 focus-within:border-brand-institucional focus-within:ring-2 focus-within:ring-brand-institucional/10 transition-all shadow-xs">
+              <LockIcon />
+              <input
+                type={showPassword ? "text" : "password"}
+                required
+                placeholder="Sua senha secreta"
+                className="w-full text-sm outline-none text-brand-escuro placeholder:text-neutral-400 bg-transparent font-sans"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="text-neutral-400 hover:text-brand-institucional p-0.5"
+                tabIndex={-1}
+                title={showPassword ? "Ocultar senha" : "Ver senha"}
+              >
+                <EyeIcon open={showPassword} />
+              </button>
+            </div>
+          </div>
+        </form>
+
+        {/* Parte Inferior: Lavoura Verde em Perspectiva e Botão Entrar (Mockup Oficial) */}
+        <div className="relative mt-auto w-full h-[220px] overflow-hidden flex flex-col justify-end p-6">
+          {/* Imagem de Fundo da Lavoura (Foto Oficial de Precisão) */}
+          <Image
+            src="/agro-field-hero.jpg"
+            alt="Lavoura Conecta Agro"
+            fill
+            className="object-cover object-bottom"
+            priority
+          />
+          {/* Gradiente de transição do branco para a imagem */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-white pointer-events-none" />
+
+          {/* Botão Entrar (Em destaque sobre a base da lavoura com alto contraste) */}
+          <div className="relative z-10 flex flex-col gap-2.5">
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              disabled={loading}
+              className="w-full rounded-2xl bg-white hover:bg-white/95 text-brand-institucional py-3.5 px-4 font-heading font-extrabold text-sm text-center shadow-lg shadow-black/25 border border-white/60 hover:shadow-xl transition-all active:scale-[0.98] disabled:opacity-75"
+            >
+              {loading ? "Entrando..." : "Entrar"}
+            </button>
+
+            <Link
+              href="/cadastro"
+              className="w-full text-center text-xs font-semibold text-white/95 hover:text-white drop-shadow-md transition-colors"
+            >
+              Não tem conta? <span className="underline underline-offset-2">Criar nova conta</span>
+            </Link>
+          </div>
         </div>
-
-        {/* Botão Criar nova conta */}
-        <Link
-          href="/cadastro"
-          className="w-full rounded-xl border border-neutral-200 bg-white py-3 text-center text-sm font-semibold text-neutral-700 hover:bg-neutral-50 active:bg-neutral-100 transition-all shadow-xs"
-        >
-          Criar nova conta
-        </Link>
-      </form>
-
-      {/* Ilustração geométrica sutil com folhas no rodapé */}
-      <div className="relative z-10 flex justify-center items-center py-2 opacity-60">
-        <svg width="48" height="24" viewBox="0 0 48 24" fill="none">
-          <path d="M12 18 C16 8, 28 8, 36 18" stroke="#2e7d32" strokeWidth="1.5" strokeDasharray="3 3" />
-          <circle cx="12" cy="18" r="2" fill="#2e7d32" />
-          <circle cx="36" cy="18" r="2" fill="#2e7d32" />
-          <path d="M24 14 C26 9, 32 10, 32 14 C32 17, 27 18, 24 14 Z" fill="#4caf50" opacity="0.8" />
-        </svg>
       </div>
     </div>
-  </div>
   );
 }
 
 function MailIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" strokeWidth="1.8">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#496F3C" strokeWidth="1.8">
       <rect x="3" y="5" width="18" height="14" rx="3" />
       <path d="m3 7 9 6 9-6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
@@ -160,7 +185,7 @@ function MailIcon() {
 
 function LockIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" strokeWidth="1.8">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#496F3C" strokeWidth="1.8">
       <rect x="4" y="11" width="16" height="9" rx="2" />
       <path d="M8 11V7a4 4 0 0 1 8 0v4" strokeLinecap="round" />
     </svg>
@@ -183,3 +208,4 @@ function EyeIcon({ open }: { open: boolean }) {
     </svg>
   );
 }
+

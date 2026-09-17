@@ -46,18 +46,18 @@ export default async function HistoricoPage({
       : sampleEvents;
 
   return (
-    <div className="min-h-[100dvh] bg-[#f6f8f4] pb-8">
+    <div className="min-h-[100dvh] bg-brand-fundo pb-8">
       {/* Header com voltar */}
-      <header className="sticky top-0 z-10 flex items-center gap-3 bg-white/95 backdrop-blur px-5 py-3.5 border-b border-neutral-100 shadow-xs">
+      <header className="sticky top-0 z-10 flex items-center gap-3 bg-white/95 backdrop-blur px-5 py-3.5 border-b border-brand-cinza/50 shadow-xs">
         <Link
           href="/dashboard"
-          className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-neutral-100 text-neutral-700 transition"
+          className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-brand-cinza/40 text-brand-escuro transition"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
             <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Link>
-        <h1 className="text-base font-bold text-neutral-900">Histórico</h1>
+        <h1 className="font-heading text-base font-bold text-brand-escuro">Histórico</h1>
       </header>
 
       <div className="px-5 pt-4 flex flex-col gap-3.5">
@@ -65,30 +65,30 @@ export default async function HistoricoPage({
         <div className="flex items-center gap-2">
           <Link
             href="/historico?tab=irrigacoes"
-            className={`flex-1 text-center py-2 rounded-xl text-xs font-semibold transition-all ${
+            className={`flex-1 text-center py-2 rounded-xl text-xs font-heading font-semibold transition-all ${
               activeTab === "irrigacoes"
-                ? "bg-[#1b5e20] text-white shadow-sm"
-                : "bg-white text-neutral-600 border border-neutral-200 hover:bg-neutral-50"
+                ? "bg-brand-institucional text-white shadow-xs"
+                : "bg-white text-brand-escuro/70 border border-brand-cinza hover:bg-brand-cinza/30"
             }`}
           >
             Irrigações
           </Link>
           <Link
             href="/historico?tab=sensores"
-            className={`flex-1 text-center py-2 rounded-xl text-xs font-semibold transition-all ${
+            className={`flex-1 text-center py-2 rounded-xl text-xs font-heading font-semibold transition-all ${
               activeTab === "sensores"
-                ? "bg-[#1b5e20] text-white shadow-sm"
-                : "bg-white text-neutral-600 border border-neutral-200 hover:bg-neutral-50"
+                ? "bg-brand-institucional text-white shadow-xs"
+                : "bg-white text-brand-escuro/70 border border-brand-cinza hover:bg-brand-cinza/30"
             }`}
           >
             Sensores
           </Link>
           <Link
             href="/historico?tab=consumo"
-            className={`flex-1 text-center py-2 rounded-xl text-xs font-semibold transition-all ${
+            className={`flex-1 text-center py-2 rounded-xl text-xs font-heading font-semibold transition-all ${
               activeTab === "consumo"
-                ? "bg-[#1b5e20] text-white shadow-sm"
-                : "bg-white text-neutral-600 border border-neutral-200 hover:bg-neutral-50"
+                ? "bg-brand-institucional text-white shadow-xs"
+                : "bg-white text-brand-escuro/70 border border-brand-cinza hover:bg-brand-cinza/30"
             }`}
           >
             Consumo
@@ -102,13 +102,13 @@ export default async function HistoricoPage({
             return (
               <li
                 key={item.id}
-                className="flex items-center justify-between rounded-2xl bg-white p-3.5 shadow-card border border-neutral-100 hover:border-neutral-200 transition-colors"
+                className="flex items-center justify-between rounded-2xl bg-white p-3.5 shadow-card border border-brand-cinza/60 hover:border-brand-salvia transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  {/* Ícone: Checkmark verde para automática, Gota azul para manual */}
+                  {/* Ícone: Checkmark verde institucional para automática, Gota verde conecta para manual */}
                   <div
                     className={`flex h-10 w-10 items-center justify-center rounded-full shrink-0 ${
-                      isAuto ? "bg-emerald-50 text-emerald-700" : "bg-blue-50 text-blue-600"
+                      isAuto ? "bg-brand-cinza/40 text-brand-institucional" : "bg-brand-salvia/30 text-brand-conecta"
                     }`}
                   >
                     {isAuto ? (
@@ -123,17 +123,17 @@ export default async function HistoricoPage({
                   </div>
 
                   <div>
-                    <p className="text-xs font-bold text-neutral-800">
+                    <p className="font-heading text-xs font-bold text-brand-escuro">
                       Irrigação {isAuto ? "automática" : "manual"}
                     </p>
-                    <p className="text-[11px] text-neutral-400 mt-0.5">{item.date}</p>
-                    <p className="text-[11px] font-semibold text-neutral-600 mt-0.5">
+                    <p className="font-sans text-[11px] text-brand-salvia mt-0.5">{item.date}</p>
+                    <p className="font-sans text-[11px] font-semibold text-brand-medio mt-0.5">
                       {item.duration} min
                     </p>
                   </div>
                 </div>
 
-                <span className="text-neutral-300">
+                <span className="text-brand-medio">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="9 18 15 12 9 6" />
                   </svg>

@@ -62,20 +62,20 @@ export default function StationsManager({ propertyId, stations }: { propertyId: 
     <div>
       <ul className="flex flex-col gap-2">
         {stations.map((s) => (
-          <li key={s.id} className="flex items-center justify-between rounded-2xl border border-neutral-100 px-4 py-3 shadow-card">
+          <li key={s.id} className="flex items-center justify-between rounded-2xl border border-brand-cinza/60 bg-white px-4 py-3 shadow-card">
             <div className="flex-1 pr-2">
               <div className="flex items-center gap-2">
-                <p className="text-sm font-semibold text-neutral-700">{s.code}</p>
+                <p className="font-heading text-sm font-semibold text-brand-escuro">{s.code}</p>
                 <StationStatusPill status={s.status} />
               </div>
-              <p className="mt-1 font-mono text-[11px] text-neutral-400 select-all truncate">
+              <p className="mt-1 font-mono text-[11px] text-brand-medio select-all truncate">
                 ID: {s.id}
               </p>
             </div>
             <button
               type="button"
               onClick={() => copyToClipboard(s.id)}
-              className="text-xs text-agro-700 hover:text-agro-800 bg-agro-50 px-2.5 py-1 rounded-lg border border-agro-200 whitespace-nowrap transition-colors"
+              className="text-xs font-sans font-medium text-brand-institucional hover:bg-brand-cinza/60 bg-brand-cinza/30 px-2.5 py-1 rounded-lg border border-brand-cinza whitespace-nowrap transition-colors"
               title="Copiar ID da estação"
             >
               {copiedId === s.id ? "Copiado!" : "Copiar ID"}
@@ -83,31 +83,31 @@ export default function StationsManager({ propertyId, stations }: { propertyId: 
           </li>
         ))}
         {stations.length === 0 && (
-          <p className="text-sm text-neutral-400">Nenhum dispositivo cadastrado ainda.</p>
+          <p className="text-sm text-brand-medio">Nenhum dispositivo cadastrado ainda.</p>
         )}
       </ul>
 
       {open ? (
-        <form onSubmit={handleAdd} className="mt-3 flex flex-col gap-2 rounded-2xl border border-agro-100 bg-agro-50/60 p-4">
+        <form onSubmit={handleAdd} className="mt-3 flex flex-col gap-2 rounded-2xl border border-brand-cinza bg-brand-cinza/20 p-4">
           <input
             required
             placeholder="Nome da estação (ex: Estação 1)"
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            className="rounded-xl border border-neutral-200 px-3 py-2 text-sm outline-none focus:border-agro-500"
+            className="rounded-xl border border-brand-cinza bg-white px-3 py-2 text-sm outline-none focus:border-brand-institucional font-sans"
           />
           <div className="flex gap-2">
             <input
               placeholder="Latitude"
               value={lat}
               onChange={(e) => setLat(e.target.value)}
-              className="w-1/2 rounded-xl border border-neutral-200 px-3 py-2 text-sm outline-none focus:border-agro-500"
+              className="w-1/2 rounded-xl border border-brand-cinza bg-white px-3 py-2 text-sm outline-none focus:border-brand-institucional font-sans"
             />
             <input
               placeholder="Longitude"
               value={lng}
               onChange={(e) => setLng(e.target.value)}
-              className="w-1/2 rounded-xl border border-neutral-200 px-3 py-2 text-sm outline-none focus:border-agro-500"
+              className="w-1/2 rounded-xl border border-brand-cinza bg-white px-3 py-2 text-sm outline-none focus:border-brand-institucional font-sans"
             />
           </div>
           {error && <p className="text-xs text-red-600">{error}</p>}
@@ -115,14 +115,14 @@ export default function StationsManager({ propertyId, stations }: { propertyId: 
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="flex-1 rounded-xl border border-neutral-200 py-2 text-sm text-neutral-500"
+              className="flex-1 rounded-xl border border-brand-cinza py-2 text-sm font-sans text-brand-escuro/70 hover:bg-brand-cinza/40 transition"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 rounded-xl bg-agro-700 py-2 text-sm font-semibold text-white disabled:opacity-60"
+              className="flex-1 rounded-xl bg-brand-institucional py-2 text-sm font-heading font-semibold text-white hover:bg-brand-escuro transition disabled:opacity-60 shadow-xs"
             >
               {loading ? "Salvando…" : "Salvar"}
             </button>
@@ -131,7 +131,7 @@ export default function StationsManager({ propertyId, stations }: { propertyId: 
       ) : (
         <button
           onClick={() => setOpen(true)}
-          className="mt-3 w-full rounded-xl border border-dashed border-agro-300 py-2.5 text-sm font-semibold text-agro-700"
+          className="mt-3 w-full rounded-xl border border-dashed border-brand-salvia py-2.5 text-sm font-heading font-semibold text-brand-institucional hover:bg-brand-cinza/30 transition"
         >
           + Adicionar estação
         </button>

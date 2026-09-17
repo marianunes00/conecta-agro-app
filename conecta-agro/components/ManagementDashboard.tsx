@@ -171,21 +171,21 @@ export default function ManagementDashboard({
   }
 
   return (
-    <div className="min-h-[100dvh] bg-[#f6f8f4] pb-16">
+    <div className="min-h-[100dvh] bg-brand-fundo pb-16">
       {/* Header com voltar */}
-      <header className="sticky top-0 z-20 flex items-center justify-between bg-white/95 backdrop-blur px-5 py-3.5 border-b border-neutral-100 shadow-xs">
+      <header className="sticky top-0 z-20 flex items-center justify-between bg-white/95 backdrop-blur px-5 py-3.5 border-b border-brand-cinza/50 shadow-xs">
         <div className="flex items-center gap-3">
           <Link
             href="/dashboard"
-            className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-neutral-100 text-neutral-700 transition"
+            className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-brand-cinza/40 text-brand-escuro transition"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
               <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
           <div>
-            <h1 className="text-base font-bold text-neutral-900 leading-tight">Painel de Gestão & IA</h1>
-            <p className="text-[11px] text-neutral-400 font-medium">
+            <h1 className="font-heading text-base font-bold text-brand-escuro leading-tight">Painel de Gestão & IA</h1>
+            <p className="font-sans text-[11px] text-brand-salvia font-medium">
               {property.name} {property.city ? `• ${property.city}` : ""}
             </p>
           </div>
@@ -196,7 +196,7 @@ export default function ManagementDashboard({
           <button
             type="button"
             onClick={handleExportCSV}
-            className="flex h-9 items-center gap-1.5 px-3 rounded-xl bg-emerald-50 text-emerald-800 hover:bg-emerald-100 text-xs font-semibold border border-emerald-200 transition"
+            className="flex h-9 items-center gap-1.5 px-3 rounded-xl bg-brand-cinza/40 text-brand-institucional hover:bg-brand-cinza/70 text-xs font-heading font-semibold border border-brand-cinza transition"
             title="Exportar dados para planilha CSV"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -319,7 +319,7 @@ export default function ManagementDashboard({
               <h3 className="text-sm font-bold text-neutral-800">Balanço e Histórico de Consumo</h3>
               <p className="text-[11px] text-neutral-400">Consumo Real (L) vs. Recomendação da IA (L)</p>
             </div>
-            <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-xl">
+            <span className="text-xs font-heading font-bold text-brand-institucional bg-brand-cinza/50 px-2.5 py-1 rounded-xl">
               -{savingsPercent}% de água
             </span>
           </div>
@@ -327,20 +327,20 @@ export default function ManagementDashboard({
           <div className="h-44 w-full -mx-2 pt-2">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={consumptionData} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
-                <XAxis dataKey="dia" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                <XAxis dataKey="dia" tick={{ fontSize: 11, fill: "#738C69" }} axisLine={false} tickLine={false} />
                 <YAxis
-                  tick={{ fontSize: 10, fill: "#94a3b8" }}
+                  tick={{ fontSize: 10, fill: "#738C69" }}
                   axisLine={false}
                   tickLine={false}
                   tickFormatter={(val) => `${Math.round(val / 1000)}k`}
                 />
                 <Tooltip
                   formatter={(val: number) => [`${val.toLocaleString("pt-BR")} L`, ""]}
-                  contentStyle={{ borderRadius: 12, border: "1px solid #e2e8f0", fontSize: 11 }}
+                  contentStyle={{ borderRadius: 12, border: "1px solid #D4DDD1", fontSize: 11 }}
                 />
                 <Legend iconType="circle" wrapperStyle={{ fontSize: 11, paddingTop: 4 }} />
-                <Bar name="Consumo Real" dataKey="real" fill="#60a5fa" radius={[4, 4, 0, 0]} />
-                <Bar name="Alvo da IA" dataKey="iaRecomendado" fill="#1b5e20" radius={[4, 4, 0, 0]} />
+                <Bar name="Consumo Real" dataKey="real" fill="#8FA787" radius={[4, 4, 0, 0]} />
+                <Bar name="Alvo da IA" dataKey="iaRecomendado" fill="#174807" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -399,16 +399,16 @@ export default function ManagementDashboard({
         {/* ======================================================== */}
         {/* SEÇÃO 4: SIMULADOR INTERATIVO DE IA & MACHINE LEARNING */}
         {/* ======================================================== */}
-        <section className="rounded-2xl bg-gradient-to-br from-emerald-950 via-[#164e1c] to-[#0f3813] p-4 text-white shadow-lg">
+        <section className="rounded-2xl bg-gradient-to-br from-brand-escuro via-brand-institucional to-brand-conecta p-4 text-white shadow-lg border border-brand-conecta/40">
           <div className="flex items-center gap-2 mb-3">
-            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-emerald-200 text-xs">
+            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-brand-salvia text-xs">
               🤖
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white leading-tight">
+              <h3 className="font-heading text-sm font-bold text-white leading-tight">
                 Simulador de IA — Demanda Hídrica (FAO-56)
               </h3>
-              <p className="text-[11px] text-emerald-200/80">
+              <p className="font-sans text-[11px] text-brand-salvia">
                 Ajuste os parâmetros para testar as decisões do modelo agronômico
               </p>
             </div>
@@ -579,14 +579,14 @@ export default function ManagementDashboard({
             <button
               type="button"
               onClick={handleExportCSV}
-              className="flex-1 py-2.5 rounded-xl bg-[#1b5e20] text-white text-xs font-bold hover:bg-[#164e1c] transition text-center shadow-xs"
+              className="flex-1 py-2.5 rounded-xl bg-brand-institucional text-white text-xs font-heading font-bold hover:bg-brand-escuro transition text-center shadow-xs"
             >
               Exportar Relatório Completo (.CSV)
             </button>
             <button
               type="button"
               onClick={handlePrint}
-              className="px-4 py-2.5 rounded-xl border border-neutral-200 text-neutral-700 text-xs font-bold hover:bg-neutral-50 transition"
+              className="px-4 py-2.5 rounded-xl border border-brand-cinza text-brand-escuro text-xs font-heading font-bold hover:bg-brand-cinza/30 transition"
             >
               Imprimir
             </button>

@@ -12,7 +12,7 @@ export default async function DashboardWebPage() {
   const stations = property ? await getStations(property.id) : [];
 
   return (
-    <div className="w-full min-h-screen bg-[#eaedf2]">
+    <div className="w-full min-h-screen bg-[#F4F7F2]">
       <WebExecutiveDashboard
         property={property}
         stations={stations.map((s) => ({
